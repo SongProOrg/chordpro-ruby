@@ -2,7 +2,7 @@
 
 require 'markaby'
 
-module SongPro
+module ChordPro
   class Song
     attr_accessor :title,
                   :artist,

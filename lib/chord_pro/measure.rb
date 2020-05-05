@@ -1,4 +1,4 @@
-module SongPro
+module ChordPro
   class Measure
     attr_accessor :chords
 

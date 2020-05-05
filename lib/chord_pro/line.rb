@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module SongPro
+module ChordPro
   class Line
     attr_accessor :parts, :tablature, :measures, :comment
 

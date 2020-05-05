@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require 'song_pro/version'
-require 'song_pro/song'
-require 'song_pro/section'
-require 'song_pro/line'
-require 'song_pro/part'
-require 'song_pro/measure'
+require 'chord_pro/version'
+require 'chord_pro/song'
+require 'chord_pro/section'
+require 'chord_pro/line'
+require 'chord_pro/part'
+require 'chord_pro/measure'
 
-module SongPro
+module ChordPro
   SECTION_REGEX = /\{(?:chorus|soc|sov|start_of_verse|start_of_chorus|sob|start_of_bridge|start_of_tab|sot|start_of_grid|sog):?\n?(.*)\}/m
   ATTRIBUTE_REGEX = /\{(\w*):([^%]*)\}/
   CUSTOM_ATTRIBUTE_REGEX = /\{meta:\s*(\w*) ([^%]*)\}/
@@ -16,6 +16,7 @@ module SongPro
   MEASURES_REGEX = %r{([\[[\w#b\/]+\]\s]+)[|]*}i
   CHORDS_REGEX = %r{\[([\w#b\/]+)\]?}i
   COMMENT_REGEX = /\{(?:c|comment|comment_italic|ci|comment_box|cb):([^$]*)\}/
+  SANITIZE_REGEX = /\{end_of_chorus|eoc|end_of_verse|eov|end_of_tab|eot|end_of_tab|eog|end_of_grid|colb\}/
 
   def self.parse(lines)
     song = Song.new
@@ -28,7 +29,7 @@ module SongPro
         current_section = process_section(song, text)
       elsif !comment_starts?(text) && attribute_start?(text)
         process_attribute(song, text)
-      elsif text.match(/\{end_of_chorus|eoc|end_of_verse|eov|end_of_tab|eot|end_of_tab|eog|end_of_grid\}/)
+      elsif text.match(SANITIZE_REGEX)
         # ignore
       else
         process_lyrics_and_chords(song, current_section, text)

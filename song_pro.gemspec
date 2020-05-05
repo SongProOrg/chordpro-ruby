@@ -2,15 +2,15 @@
 
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'song_pro/version'
+require 'chord_pro/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'song_pro'
-  spec.version       = SongPro::VERSION
-  spec.authors       = ['Brian Kelly']
-  spec.email         = ['polymonic@gmail.com  ']
+  spec.name          = 'chord_pro'
+  spec.version       = ChordPro::VERSION
+  spec.authors       = ['Daniel Senff', 'Brian Kelly']
+  spec.email         = ['polymonic@gmail.com']
 
-  spec.summary       = 'Converts SongPro files to HTML'
+  spec.summary       = 'Converts ChordPro files to HTML'
   spec.description   = 'Provides classes for creating, parsing and rendering SongPro files'
   spec.homepage      = 'https://songpro.org'
   spec.license       = 'MIT'

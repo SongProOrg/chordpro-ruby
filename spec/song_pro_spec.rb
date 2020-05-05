@@ -53,6 +53,7 @@ RSpec.describe SongPro do
 {start_of_chorus: Chorus 1}
 {start_of_chorus}
 {chorus}
+{chorus:Final}
 ')
       expect(song.sections.size).to eq 5
       expect(song.sections[0].name).to eq 'Verse 1'
@@ -60,6 +61,7 @@ RSpec.describe SongPro do
       expect(song.sections[2].name).to eq 'Chorus 1'
       expect(song.sections[3].name).to eq 'Chorus'
       expect(song.sections[4].name).to eq 'Chorus'
+      expect(song.sections[5].name).to eq 'Final'
     end
   end
 
@@ -79,7 +81,8 @@ RSpec.describe SongPro do
       expect(song.sections.size).to eq 1
       expect(song.sections[0].lines.size).to eq 1
       expect(song.sections[0].lines[0].parts.size).to eq 1
-      expect(song.sections[0].lines[0].parts[0].lyric).to eq 'singing something (something else)'
+      expect(song.sections[0].lines[0].parts[0].lyric)
+        .to eq 'singing something (something else)'
     end
 
     it 'handles special characters' do
@@ -88,7 +91,8 @@ RSpec.describe SongPro do
       expect(song.sections.size).to eq 1
       expect(song.sections[0].lines.size).to eq 1
       expect(song.sections[0].lines[0].parts.size).to eq 1
-      expect(song.sections[0].lines[0].parts[0].lyric).to eq 'singing sömething with Röck dots'
+      expect(song.sections[0].lines[0].parts[0].lyric)
+        .to eq 'singing sömething with Röck dots'
     end
   end
 
@@ -116,7 +120,8 @@ RSpec.describe SongPro do
       expect(song.sections[0].lines.size).to eq 1
       expect(song.sections[0].lines[0].parts.size).to eq 1
       expect(song.sections[0].lines[0].parts[0].chord).to eq 'G'
-      expect(song.sections[0].lines[0].parts[0].lyric).to eq "Don't go 'round tonight"
+      expect(song.sections[0].lines[0].parts[0].lyric)
+        .to eq "Don't go 'round tonight"
     end
 
     it 'parses lyrics before chords' do
@@ -127,7 +132,8 @@ RSpec.describe SongPro do
       expect(song.sections[0].lines[0].parts[0].chord).to eq ''
       expect(song.sections[0].lines[0].parts[0].lyric).to eq "It's "
       expect(song.sections[0].lines[0].parts[1].chord).to eq 'D'
-      expect(song.sections[0].lines[0].parts[1].lyric).to eq 'bound to take your life'
+      expect(song.sections[0].lines[0].parts[1].lyric)
+        .to eq 'bound to take your life'
     end
 
     it 'parses lyrics before chords' do
@@ -204,7 +210,8 @@ RSpec.describe SongPro do
       expect(song.capo).to eq '1'
       expect(song.sections.size).to eq 9
       expect(song.custom[:difficulty]).to eq 'Easy'
-      expect(song.custom[:spotify_url]).to eq 'https://open.spotify.com/track/20OFwXhEXf12DzwXmaV7fj?si=cE76lY5TT26fyoNmXEjNpA'
+      expect(song.custom[:spotify_url])
+        .to eq 'https://open.spotify.com/track/20OFwXhEXf12DzwXmaV7fj?si=cE76lY5TT26fyoNmXEjNpA'
     end
   end
 end

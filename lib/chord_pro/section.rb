@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module SongPro
+module ChordPro
   class Section
     attr_accessor :name, :lines
 
