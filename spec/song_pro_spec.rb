@@ -4,8 +4,8 @@ RSpec.describe SongPro do
   context 'custom attributes' do
     it 'parses custom attributes' do
       song = SongPro.parse('
-!difficulty=Easy
-!spotify_url=https://open.spotify.com/track/5zADxJhJEzuOstzcUtXlXv?si=SN6U1oveQ7KNfhtD2NHf9A
+{meta: difficulty Easy}
+{meta: spotify_url https://open.spotify.com/track/5zADxJhJEzuOstzcUtXlXv?si=SN6U1oveQ7KNfhtD2NHf9A}
 ')
 
       expect(song.custom[:difficulty]).to eq('Easy')
@@ -16,14 +16,15 @@ RSpec.describe SongPro do
   context 'attributes' do
     it 'parses attributes' do
       song = SongPro.parse('
-@title=Bad Moon Rising
-@artist=Creedence Clearwater Revival
-@capo=1st Fret
-@key=C# Minor
-@tempo=120
-@year=1975
-@album=Foo Bar Baz
-@tuning=Eb Standard
+{title:Bad Moon Rising}
+{artist:Creedence Clearwater Revival}
+{capo:1st Fret}
+{key:C# Minor}
+{tempo:120}
+{year:1975 Hundewelpen Records}
+{year:1975}
+{album:Foo Bar Baz}
+{tuning:Eb Standard}
 ')
 
       expect(song.title).to eq('Bad Moon Rising')
@@ -39,7 +40,7 @@ RSpec.describe SongPro do
 
   context 'sections' do
     it 'parses section names' do
-      song = SongPro.parse('# Verse 1')
+      song = SongPro.parse('{start_of_verse: Verse 1}')
 
       expect(song.sections.size).to eq 1
       expect(song.sections[0].name).to eq 'Verse 1'
@@ -47,12 +48,18 @@ RSpec.describe SongPro do
 
     it 'parses multiple section names' do
       song = SongPro.parse('
-# Verse 1
-# Chorus
+{start_of_verse: Verse 1}
+{start_of_verse}
+{start_of_chorus: Chorus 1}
+{start_of_chorus}
+{chorus}
 ')
-      expect(song.sections.size).to eq 2
+      expect(song.sections.size).to eq 5
       expect(song.sections[0].name).to eq 'Verse 1'
-      expect(song.sections[1].name).to eq 'Chorus'
+      expect(song.sections[1].name).to eq 'Verse'
+      expect(song.sections[2].name).to eq 'Chorus 1'
+      expect(song.sections[3].name).to eq 'Chorus'
+      expect(song.sections[4].name).to eq 'Chorus'
     end
   end
 
@@ -66,7 +73,7 @@ RSpec.describe SongPro do
       expect(song.sections[0].lines[0].parts[0].lyric).to eq "I don't see! a bad, moon a-rising. (a-rising)"
     end
 
-    it 'handles parens in lyics' do
+    it 'handles parenthesis in lyics' do
       song = SongPro.parse('singing something (something else)')
 
       expect(song.sections.size).to eq 1
@@ -140,8 +147,6 @@ RSpec.describe SongPro do
   context 'measures' do
     it 'parses chord-only measures' do
       song = SongPro.parse('
-# Instrumental
-
 | [A] [B] | [C] | [D] [E] [F] [G] |
 ')
 
@@ -157,10 +162,10 @@ RSpec.describe SongPro do
   context 'tablature' do
     it 'parses tablature' do
       song = SongPro.parse('
-# Riff
-
+{start_of_tab}
 |-3---5-|
 |---4---|
+{end_of_tab}
 ')
       expect(song.sections.size).to eq 1
       expect(song.sections[0].lines[0].tablature?).to eq true
@@ -173,12 +178,18 @@ RSpec.describe SongPro do
   context 'comments' do
     it 'parses comments' do
       song = SongPro.parse('
-# Comment
+{c:This is a comment.}
+{comment:This is a comment.}
+{highlight:This is a comment.}
 
-> This is a comment.
+{ci:This is an italic comment.}
+{comment_italic:This is an italic comment.}
+
+{cb:This is a box comment.}
+{comment_box:This is a box comment.}
 ')
 
-      expect(song.sections.size).to eq 1
+      expect(song.sections.size).to eq 6
       expect(song.sections[0].lines[0].comment?).to eq true
       expect(song.sections[0].lines[0].comment).to eq 'This is a comment.'
     end
@@ -186,7 +197,7 @@ RSpec.describe SongPro do
 
   context 'full song' do
     it 'parses the whole song' do
-      bmr = File.read('spec/fixtures/bad-moon-rising.sng')
+      bmr = File.read('spec/fixtures/bad-moon-rising.pro')
       song = SongPro.parse(bmr)
       expect(song.title).to eq 'Bad Moon Rising'
       expect(song.artist).to eq 'Creedence Clearwater Revival'

@@ -10,6 +10,7 @@ module SongPro
                   :key,
                   :tempo,
                   :year,
+                  :copyright,
                   :album,
                   :tuning,
                   :sections,
@@ -106,5 +107,14 @@ module SongPro
 
       mab.to_s
     end
+
+    def comment=(value)
+      @comment = value
+    end
+
+    alias_method :ci=, :comment=
+    alias_method :comment_italic=, :comment=
+    alias_method :cb, :comment=
+    alias_method :comment_box, :comment=
   end
 end

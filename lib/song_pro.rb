@@ -8,26 +8,28 @@ require 'song_pro/part'
 require 'song_pro/measure'
 
 module SongPro
-  SECTION_REGEX = /#\s*([^$]*)/
-  ATTRIBUTE_REGEX = /@(\w*)=([^%]*)/
-  CUSTOM_ATTRIBUTE_REGEX = /!(\w*)=([^%]*)/
+  SECTION_REGEX = /\{(?:chorus|soc|sov|start_of_verse|start_of_chorus|sob|start_of_bridge|start_of_tab|sot|start_of_grid|sog):?\n?(.*)\}/m
+  ATTRIBUTE_REGEX = /\{(\w*):([^%]*)\}/
+  CUSTOM_ATTRIBUTE_REGEX = /\{meta:\s*(\w*) ([^%]*)\}/
   CHORDS_AND_LYRICS_REGEX = %r{(\[[\w#b\/]+\])?([^\[]*)}i
 
   MEASURES_REGEX = %r{([\[[\w#b\/]+\]\s]+)[|]*}i
   CHORDS_REGEX = %r{\[([\w#b\/]+)\]?}i
-  COMMENT_REGEX = />\s*([^$]*)/
+  COMMENT_REGEX = /\{(?:c|comment|comment_italic|ci|comment_box|cb):([^$]*)\}/
 
   def self.parse(lines)
     song = Song.new
     current_section = nil
 
     lines.split("\n").each do |text|
-      if text.start_with?('@')
-        process_attribute(song, text)
-      elsif text.start_with?('!')
+      if text.start_with?('{meta:')
         process_custom_attribute(song, text)
-      elsif text.start_with?('#')
+      elsif section_start?(text)
         current_section = process_section(song, text)
+      elsif !comment_starts?(text) && attribute_start?(text)
+        process_attribute(song, text)
+      elsif text.match(/\{end_of_chorus|eoc|end_of_verse|eov|end_of_tab|eot|end_of_tab|eog|end_of_grid\}/)
+        # ignore
       else
         process_lyrics_and_chords(song, current_section, text)
       end
@@ -38,7 +40,8 @@ module SongPro
 
   def self.process_section(song, text)
     matches = SECTION_REGEX.match(text)
-    name = matches[1].strip
+    name = !matches[1].empty? ? matches[1].strip : section_name_by_directive(text)
+
     current_section = Section.new(name: name)
     song.sections << current_section
 
@@ -90,7 +93,7 @@ module SongPro
       end
 
       line.measures = measures
-    elsif text.start_with?('>')
+    elsif comment_starts?(text)
       matches = COMMENT_REGEX.match(text)
       comment = matches[1].strip
       line.comment = comment
@@ -109,4 +112,26 @@ module SongPro
 
     current_section.lines << line
   end
+
+  private
+
+  def self.attribute_start?(text)
+    text.match(/\{(.+):(.*)\}/)
+  end
+
+  def self.section_start?(text)
+    text.match(SECTION_REGEX)
+  end
+
+  def self.comment_starts?(text)
+    text.match(/\{(?:c|comment|comment_italic|ci|comment_box|cb):/)
+  end
+
+  def self.section_name_by_directive(text)
+    return 'Chorus' if text.match(/soc|start_of_chorus|chorus/)
+    return 'Verse' if text.match(/sov|start_of_verse/)
+    return 'Tab' if text.match(/sot|start_of_tab/)
+    return 'Grid' if text.match(/sot|start_of_grid/)
+  end
+
 end
