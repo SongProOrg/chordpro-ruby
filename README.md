@@ -1,4 +1,4 @@
-# ChordPro for Ruby [![Build Status](https://travis-ci.com/ChordProOrg/songpro-ruby.svg?branch=master)](https://travis-ci.com/ChordProOrg/songpro-ruby)
+# ChordPro for Ruby [![Build Status](https://travis-ci.com/SongProOrg/chordpro-ruby.svg?branch=master)](https://travis-ci.com/SongProOrg/chordpro-ruby)
 
 [ChordPro](https://songpro.org) is a text format for transcribing songs.
 
@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-Given then file `bad-moon-rising.sng` with the following contents:
+Given then file `bad-moon-rising.pro` with the following contents:
 
 ```
 @title=Bad Moon Rising
