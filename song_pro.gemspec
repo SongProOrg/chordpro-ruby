@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'chord_pro'
   spec.version       = ChordPro::VERSION
   spec.authors       = ['Daniel Senff', 'Brian Kelly']
-  spec.email         = ['polymonic@gmail.com']
+  spec.email         = ['mail@danielsenff.de']
 
   spec.summary       = 'Converts ChordPro files to HTML'
   spec.description   = 'Provides classes for creating, parsing and rendering SongPro files'

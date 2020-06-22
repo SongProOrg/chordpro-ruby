@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "song_pro"
+require "chord_pro"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

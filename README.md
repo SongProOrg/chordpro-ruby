@@ -1,7 +1,7 @@
-# SongPro for Ruby [![Build Status](https://travis-ci.com/SongProOrg/songpro-ruby.svg?branch=master)](https://travis-ci.com/SongProOrg/songpro-ruby)
+# ChordPro for Ruby [![Build Status](https://travis-ci.com/ChordProOrg/songpro-ruby.svg?branch=master)](https://travis-ci.com/ChordProOrg/songpro-ruby)
 
-[SongPro](https://songpro.org) is a text format for transcribing songs.
- 
+[ChordPro](https://songpro.org) is a text format for transcribing songs.
+
 This project is a Ruby Gem that converts the song into a Song data model which can then be converted into various output formats such as text or HTML.
 
 ## Installation
@@ -18,7 +18,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install song_pro
+    $ gem install chord_pro
 
 ## Usage
 
@@ -45,14 +45,14 @@ You can then parse the file to create a `Song` object:
 ```ruby
 require 'song_pro'
 
-text = File.read('bad-moon-rising.sng')
-song = SongPro.parse(text)
+text = File.read('bad-moon-rising.pro')
+song = ChordPro.parse(text)
 
 puts song.title
 # Bad Moon Rising
 
 puts song.artist
-# Creedence Clearwater Revival 
+# Creedence Clearwater Revival
 
 puts song.sections[1].title
 # Verse 1
@@ -67,7 +67,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at <https://github.com/SongProOrg/songpro-ruby>.
+Bug reports and pull requests are welcome on GitHub at <https://github.com/SongProOrg/chordpro-ruby>.
 
 ## License
 

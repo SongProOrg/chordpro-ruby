@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-RSpec.describe SongPro::Song do
+RSpec.describe ChordPro::Song do
   context '#chord' do
     it 'returns all chords through the song' do
-      song = SongPro.parse('
+      song = ChordPro.parse('
 {soc}
 Some [D] chord [A]
 | [B] [C] |
@@ -18,11 +18,9 @@ Some [D] chord [A]
     it 'generates divs' do
       infile = File.read('spec/fixtures/bad-moon-rising.pro')
       outfile = File.read('spec/fixtures/bad-moon-rising.html')
-      song = SongPro.parse(infile)
+      song = ChordPro.parse(infile)
 
-      html = song.to_html
-
-      puts html
+      html = song.to_html + "\n"
 
       expect(html).to include outfile
     end

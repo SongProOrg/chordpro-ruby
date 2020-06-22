@@ -111,7 +111,7 @@ module ChordPro
       end
     end
 
-    current_section.lines << line
+    current_section.lines << line unless line.empty?
   end
 
   private

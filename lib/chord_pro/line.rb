@@ -12,15 +12,23 @@ module ChordPro
     end
 
     def tablature?
-      !@tablature.nil?
+      !tablature.nil?
     end
 
     def measures?
-      !@measures.nil?
+      !measures.nil?
     end
 
     def comment?
-      !@comment.nil?
+      !comment.nil?
+    end
+
+    def parts?
+      !parts.empty?
+    end
+
+    def empty?
+      !(comment? || measures? || tablature? || parts?)
     end
   end
 end

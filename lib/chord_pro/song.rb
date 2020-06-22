@@ -100,7 +100,7 @@ module ChordPro
                   end
                 end
               end
-            end
+            end unless section.lines.empty?
           end
         end
       end
