@@ -32,7 +32,6 @@ Given then file `bad-moon-rising.pro` with the following contents:
 | [D] | [A] [G] | [D] |
 {end_of_grid}
 
-# Verse 1
 {start_of_verse}
 [D]I see a [A]bad [G]moon a-[D]rising
 [D]I see [A]trouble [G]on the [D]way
