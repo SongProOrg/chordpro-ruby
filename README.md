@@ -1,6 +1,6 @@
 # ChordPro for Ruby [![Build Status](https://travis-ci.com/SongProOrg/chordpro-ruby.svg?branch=master)](https://travis-ci.com/SongProOrg/chordpro-ruby)
 
-[ChordPro](https://songpro.org) is a text format for transcribing songs.
+[ChordPro](https://www.chordpro.org/) is a text format for transcribing songs.
 
 This project is a Ruby Gem that converts the song into a Song data model which can then be converted into various output formats such as text or HTML.
 
@@ -25,19 +25,20 @@ Or install it yourself as:
 Given then file `bad-moon-rising.pro` with the following contents:
 
 ```
-@title=Bad Moon Rising
-@artist=Cleedence Clearwater Revival
+{title:Bad Moon Rising}
+{artist:Cleedence Clearwater Revival}
 
-# Intro
-
-[D][A][G][D]
+{start_of_grid:Intro}
+| [D] | [A] [G] | [D] |
+{end_of_grid}
 
 # Verse 1
-
+{start_of_verse}
 [D]I see a [A]bad [G]moon a-[D]rising
 [D]I see [A]trouble [G]on the [D]way
 [D]I see [A]earth-[G]quakes and [D]lightnin'
 [D]I see [A]bad [G]times to-[D]day
+{end_of_verse}
 ```
 
 You can then parse the file to create a `Song` object:
