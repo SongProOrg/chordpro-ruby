@@ -35,6 +35,13 @@ It's [D]bound to take your life
 
 {chorus}
 
+{start_of_bridge}
+| [D] | [A] [G] | [D] | [D] |
+| [D] | [A] [G] | [D] | [D] |
+| [G] | [G] | [D] | [D] |
+| [A7] | [G] | [D] | [D] |
+{end_of_bridge}
+
 {start_of_grid: Solo}
 | [D] | [A] [G] | [D] | [D] |
 | [D] | [A] [G] | [D] | [D] |

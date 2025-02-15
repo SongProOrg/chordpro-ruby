@@ -16,7 +16,7 @@ module ChordPro
   MEASURES_REGEX = %r{([\[[\w#b\/]+\]\s]+)[|]*}i
   CHORDS_REGEX = %r{\[([\w#b\/]+)\]?}i
   COMMENT_REGEX = /\{(?:c|comment|comment_italic|ci|comment_box|cb):([^$]*)\}/
-  SANITIZE_REGEX = /\{end_of_chorus|eoc|end_of_verse|eov|end_of_tab|eot|end_of_tab|eog|end_of_grid|colb\}/
+  SANITIZE_REGEX = /\{end_of_chorus|eoc|end_of_verse|eov|eob|end_of_bridge|end_of_tab|eot|end_of_tab|eog|end_of_grid|colb\}/
 
   class << self
     def parse(lines)
@@ -133,6 +133,7 @@ module ChordPro
       return "Chorus" if /soc|start_of_chorus|chorus/.match?(text)
       return "Verse" if /sov|start_of_verse/.match?(text)
       return "Tab" if /sot|start_of_tab/.match?(text)
+      return "Bridge" if /sob|start_of_bridge/.match?(text)
       "Grid" if /sot|start_of_grid/.match?(text)
     end
   end
