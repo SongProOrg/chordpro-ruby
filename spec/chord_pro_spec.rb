@@ -52,16 +52,22 @@ RSpec.describe ChordPro do
 {start_of_verse}
 {start_of_chorus: Chorus 1}
 {start_of_chorus}
+{start_of_bridge}
+{start_of_bridge: Bridge 2}
+{sob}
 {chorus}
 {chorus:Final}
 ')
-      expect(song.sections.size).to eq 6
+      expect(song.sections.size).to eq 9
       expect(song.sections[0].name).to eq "Verse 1"
       expect(song.sections[1].name).to eq "Verse"
       expect(song.sections[2].name).to eq "Chorus 1"
       expect(song.sections[3].name).to eq "Chorus"
-      expect(song.sections[4].name).to eq "Chorus"
-      expect(song.sections[5].name).to eq "Final"
+      expect(song.sections[4].name).to eq "Bridge"
+      expect(song.sections[5].name).to eq "Bridge 2"
+      expect(song.sections[6].name).to eq "Bridge"
+      expect(song.sections[7].name).to eq "Chorus"
+      expect(song.sections[8].name).to eq "Final"
     end
   end
 
@@ -208,7 +214,7 @@ RSpec.describe ChordPro do
       expect(song.title).to eq "Bad Moon Rising"
       expect(song.artist).to eq "Creedence Clearwater Revival"
       expect(song.capo).to eq "1"
-      expect(song.sections.size).to eq 9
+      expect(song.sections.size).to eq 10
       expect(song.custom[:difficulty]).to eq "Easy"
       expect(song.custom[:spotify_url])
         .to eq "https://open.spotify.com/track/20OFwXhEXf12DzwXmaV7fj?si=cE76lY5TT26fyoNmXEjNpA"
